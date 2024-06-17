@@ -56,7 +56,7 @@ const SignUp = () => {
         <div className="flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:items-center">
           {/* left */}
           <div className="flex-1 mb-4">
-            <Link to="/" className="font-bold dark:text-white text-4xl ">
+            <Link to="/" className="font-bold hover:text-current text-4xl ">
               <span className="px-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white">
                 Stitch
               </span>{" "}
