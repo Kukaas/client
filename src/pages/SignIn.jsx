@@ -1,21 +1,24 @@
 import { Button, Form, Input, Spin, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useState } from "react";
+import { loginStart, loginFailure, loginSuccess } from "../redux/user/userslice";
+import { useDispatch, useSelector } from "react-redux";
+
 
 const SignIn = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const { loading } = useSelector(state => state.user);
 
   const handleLogin = async (values) => {
-    setLoading(true); // Start loading here
+    dispatch(loginStart());
 
     if (
       !values.email ||
       !values.password 
     ) {
       message.error("Please fill out all fields");
-      setLoading(false);
+      dispatch(loginFailure());
       return;
     }
 
@@ -29,19 +32,21 @@ const SignIn = () => {
       );
 
       if (res.status === 200) {
+        dispatch(loginSuccess(res.data));
         message.success("Sign in successful");
         navigate("/");
       }
     } catch (error) {
       if (error.response && error.response.status === 404) {
+        dispatch(loginFailure(error.message));
         message.error("User not found");
       } else if (error.response && error.response.status === 400) {
+        dispatch(loginFailure(error.message));
         message.error("Wrong email or password");
       } else {
+        dispatch(loginFailure(error.message));
         message.error("Something went wrong");
       } 
-    } finally {
-      setLoading(false); // Stop loading in all cases
     }
   };
 
