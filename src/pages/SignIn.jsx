@@ -102,7 +102,7 @@ const SignIn = () => {
             <div>
               <p className="text-center text-sm text-gray-600">
                 Don&apos;t have an account?{" "}
-                <Link to="/sign-in" className="text-blue-500">
+                <Link to="/sign-up" className="text-blue-500">
                   Sign up
                 </Link>
               </p>
